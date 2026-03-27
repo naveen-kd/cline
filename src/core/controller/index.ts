@@ -851,7 +851,6 @@ export class Controller {
 		const autoApprovalSettings = this.stateManager.getGlobalSettingsKey("autoApprovalSettings")
 		const browserSettings = this.stateManager.getGlobalSettingsKey("browserSettings")
 		const focusChainSettings = this.stateManager.getGlobalSettingsKey("focusChainSettings")
-		const dictationSettings = this.stateManager.getGlobalSettingsKey("dictationSettings")
 		const preferredLanguage = this.stateManager.getGlobalSettingsKey("preferredLanguage")
 		const mode = this.stateManager.getGlobalSettingsKey("mode")
 		const strictPlanModeEnabled = this.stateManager.getGlobalSettingsKey("strictPlanModeEnabled")
@@ -888,6 +887,7 @@ export class Controller {
 		const lastDismissedCliBannerVersion = this.stateManager.getGlobalStateKey("lastDismissedCliBannerVersion") || 0
 		const dismissedBanners = this.stateManager.getGlobalStateKey("dismissedBanners")
 		const doubleCheckCompletionEnabled = this.stateManager.getGlobalSettingsKey("doubleCheckCompletionEnabled")
+		const showFeatureTips = this.stateManager.getGlobalSettingsKey("showFeatureTips")
 
 		const localClineRulesToggles = this.stateManager.getWorkspaceStateKey("localClineRulesToggles")
 		const localWindsurfRulesToggles = this.stateManager.getWorkspaceStateKey("localWindsurfRulesToggles")
@@ -919,12 +919,6 @@ export class Controller {
 		const { openAiCodexOAuthManager } = await import("@/integrations/openai-codex/oauth")
 		const openAiCodexIsAuthenticated = await openAiCodexOAuthManager.isAuthenticated()
 
-		// Set feature flag in dictation settings based on platform
-		const updatedDictationSettings = {
-			...dictationSettings,
-			featureEnabled: process.platform === "darwin" || process.platform === "linux", // Enable dictation on macOS and Linux
-		}
-
 		return {
 			version,
 			apiConfiguration,
@@ -935,7 +929,6 @@ export class Controller {
 			autoApprovalSettings,
 			browserSettings,
 			focusChainSettings,
-			dictationSettings: updatedDictationSettings,
 			preferredLanguage,
 			mode,
 			strictPlanModeEnabled,
@@ -994,7 +987,7 @@ export class Controller {
 				user: this.stateManager.getGlobalSettingsKey("worktreesEnabled"),
 				featureFlag: featureFlagsService.getWorktreesEnabled(),
 			},
-			hooksEnabled: getHooksEnabledSafe(),
+			hooksEnabled: getHooksEnabledSafe(this.stateManager.getGlobalSettingsKey("hooksEnabled")),
 			lastDismissedInfoBannerVersion,
 			lastDismissedModelBannerVersion,
 			remoteConfigSettings: this.stateManager.getRemoteConfigSettings(),
@@ -1005,6 +998,7 @@ export class Controller {
 			backgroundEditEnabled: this.stateManager.getGlobalSettingsKey("backgroundEditEnabled"),
 			optOutOfRemoteConfig: this.stateManager.getGlobalSettingsKey("optOutOfRemoteConfig"),
 			doubleCheckCompletionEnabled,
+			showFeatureTips,
 			banners,
 			welcomeBanners,
 			openAiCodexIsAuthenticated,

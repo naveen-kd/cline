@@ -101,6 +101,7 @@
 						"pages": [
 							"cline-cli/overview",
 							"cline-cli/installation",
+							"cline-sdk/overview",
 							"cline-cli/interactive-mode",
 							{
 								"group": "Headless Mode",
@@ -297,7 +298,51 @@
 									"enterprise-solutions/monitoring/telemetry",
 									"enterprise-solutions/monitoring/opentelemetry"
 								]
-							}
+							},
+							"enterprise-solutions/api-reference"
+						]
+					}
+				]
+			},
+			{
+				"tab": "API",
+				"icon": "code",
+				"groups": [
+					{
+						"group": "Cline API",
+						"pages": [
+							"api/overview",
+							"api/getting-started",
+							"api/authentication"
+						]
+					},
+					{
+						"group": "Endpoints",
+						"pages": [
+							"api/chat-completions"
+						]
+					},
+					{
+						"group": "Reference",
+						"pages": [
+							"api/models",
+							"api/errors",
+							"api/sdk-examples"
+						]
+					}
+				]
+			},
+			{
+				"tab": "Kanban",
+				"icon": "table-columns",
+				"groups": [
+					{
+						"group": "Cline Kanban",
+						"pages": [
+							"kanban/overview",
+							"kanban/getting-started",
+							"kanban/core-workflow",
+							"kanban/features"
 						]
 					}
 				]
@@ -607,6 +652,10 @@
 		{
 			"source": "/features/skills",
 			"destination": "/customization/skills"
+		},
+		{
+			"source": "/api/reference",
+			"destination": "/api/overview"
 		}
 	],
 	"search": {
